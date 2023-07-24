@@ -18,7 +18,7 @@
     
 <br>
 
-<table  style="margin: -23px;" width="120%" bgcolor="#37B6FF">
+<table  style="margin: -23px;" width="102%" bgcolor="#37B6FF">
     <tr>
         <td><a href="../inicio.php"><img src="../logo.jpeg" alt=""  width="150" height="50"></a></td>
         <td><h3 >Ordenes de Servicio - GPC</h3></td>

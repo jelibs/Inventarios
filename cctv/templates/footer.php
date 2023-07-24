@@ -27,7 +27,7 @@
             },
         });
     } );
-    table.buttons().container().appendTo( $('.col-sm-2:eq(0)', table.table().container()));
+   // table.buttons().container().appendTo( $('.col-sm-2:eq(0)', table.table().container()));
 </script>
 <br>
 <p>Copyright © 2023 Generadores de Proyectos en Comunciación S.A de C.V. Calle 16 de Septiembre No. 5313, Colonia Las Palmas, 72550 Puebla, Pue.</p>
