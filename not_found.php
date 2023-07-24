@@ -32,7 +32,7 @@
 				<h1>404</h1>
 				<h2>Página no encontrada</h2>
 			</div>
-			<a href="inicio.php">Ir a Inicio</a>
+			<a href="./index.php">Ir a Inicio</a>
 		</div>
 	</div>
 
