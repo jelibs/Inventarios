@@ -1,111 +1,60 @@
-<?php
-include 'funciones.php';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="../favicon.ico"/>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 
-csrf();
-if (isset($_POST['submit']) && !hash_equals($_SESSION['csrf'], $_POST['csrf'])) {
-  die();
-}
+<!--Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-$error = false;
-$config = include 'config.php';
+    <title>GPS Tlaxcala (GPC)</title>
+</head>
+<body>
+    
+<br>
 
-try {
-  $dsn = 'mysql:host=' . $config['db']['host'] . ';dbname=' . $config['db']['name'];
-  $conexion = new PDO($dsn, $config['db']['user'], $config['db']['pass'], $config['db']['options']);
+<table  style="margin: -23px;" width="102%" bgcolor="#37B6FF">
+    <tr>
+        <td><a href="../inicio.php"><img src="../logo.jpeg" alt=""  width="150" height="50"></a></td>
+        <td><h3 >GPS - Tlaxcala</h3></td>
+    </tr>
+</table>
+<hr>
+<script type="text/javascript">
+    //Función redirije al menú inicio
+    function redirect_registro()
+      {window.location.href="./crear.php";}
+    </script>
 
-  if (isset($_POST['placa'])) {
-    $consultaSQL = "SELECT * FROM gps WHERE placa LIKE '%" . $_POST['placa'] . "%'";
-  } else {
-    $consultaSQL = "SELECT * FROM gps";
-  }
+<button name="redirect" onClick="redirect_registro()" class="button btn btn-primary mt-4">Registrar GPS</button>
+<script type="text/javascript">
+    //Función redirije al menú inicio
+    function redirect()
+      {window.location.href="../inicio.php";}
+    </script>
 
-  $sentencia = $conexion->prepare($consultaSQL);
-  $sentencia->execute();
-
-  $alumnos = $sentencia->fetchAll();
-
-} catch(PDOException $error) {
-  $error= $error->getMessage();
-}
-
-$titulo = isset($_POST['placa']) ? 'Lista de dispositivos GPS(' . $_POST['placa'] . ')' : 'Lista de GPS';
-?>
-
-<?php include "templates/header.php"; ?>
-
-<?php
-if ($error) {
-  ?>
-  <div class="container mt-2">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="alert alert-danger" role="alert">
-          <?= $error ?>
-        </div>
-      </div>
-    </div>
-  </div>
-  <?php
-}
-?>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <a href="crear.php"  class="btn btn-primary mt-4">Crear inventario GPS</a>
-      <a href="../inicio.php"  class="btn btn-primary mt-4">Ir a inicio</a>
-      <hr>
-      <form method="post" class="form-inline">
-        <div class="form-group mr-3">
-          <input type="text" id="placa" name="placa" placeholder="Buscar por placa" class="form-control">
-        </div>
-        <input name="csrf" type="hidden" value="<?php echo escapar($_SESSION['csrf']); ?>">
-        <button type="submit" name="submit" class="btn btn-primary">Buscar</button>
-      </form>
-    </div>
-  </div>
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <h2 class="mt-3"><?= $titulo ?></h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Placa</th>
+<button name="redirect" onClick="redirect()"   class="button btn btn-primary mt-4">Ir a inicio</button>
+<hr>
+<table id="theTableCCTV" class="table table-striped table-bordered"  style="width: 100%">
+    <thead>
+        <tr>
+          <th>Placa</th>
             <th>GPS</th>
             <th>Equipo</th>
             <th>SIM</th>
             <th>Línea</th>
             <th>Orden de servicio</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php
-          if ($alumnos && $sentencia->rowCount() > 0) {
-            foreach ($alumnos as $fila) {
-              ?>
-              <tr>
-                <td><?php echo escapar($fila["placa"]); ?></td>
-                <td><?php echo escapar($fila["gps"]); ?></td>
-                <td><?php echo escapar($fila["equipo"]); ?></td>
-                <td><?php echo escapar($fila["sim"]); ?></td>
-                <td><?php echo escapar($fila["linea"]); ?></td>
-                <td><?php echo escapar($fila["orden"]); ?></td>
-                <td>
-                  <!-- <a href="<?= 'borrar.php?id=' . escapar($fila["id"]) ?>">🗑️Borrar</a>
-                  <a href="<?= 'editar.php?id=' . escapar($fila["id"]) ?>">✏️Editar</a> -->
-                </td>
-              </tr>
-              <?php
-            }
-          }
-          ?>
-        <tbody>
-      </table>
-    </div>
-  </div>
-</div>
+        </tr>
+    </thead>
+    <tfoot>
+    </tfoot>
+</table>
+</body>
+</html>
 
 <?php include "templates/footer.php"; ?>
