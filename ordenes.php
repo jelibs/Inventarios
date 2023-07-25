@@ -1,55 +1,15 @@
 <?php
-    header('Content-Type: text/html; charset=UTF-8');
-    //Iniciar una nueva sesión o reanudar la existente.
-    session_start();
-    //Si existe la sesión "cliente"..., la guardamos en una variable.
-    if (isset($_SESSION['loggedin'])){
-        $cliente = $_SESSION['loggedin'];
-    }else{
- header('Location: index.php');//Aqui lo redireccionas al lugar que quieras.
-     die() ;
-
-    }
+// recogemos datos enviados desde el formulario de registro
+//$u = filter_var($_POST['username'],FILTER_SANITIZE_STRING);
+//$p = filter_var($_POST['password'],FILTER_SANITIZE_STRING);
+// generamos el hash a partir de la contraseña enviada desde el formulario
+$p_hashed = password_hash("12345678", PASSWORD_BCRYPT);
+// almacenamos la informa del usuario en base de datos
+// la siguiente función es solo un ejemplo
+echo $p_hashed."\n";
+if (password_verify("12345678",$p_hashed)) {
+    echo "¡La contraseña es válida!";
+} else {
+    echo "La contraseña no es válida.";
+}
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <!-- <link rel="stylesheet" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"> -->
-    <link rel="stylesheet" href="//cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
-    <title>Inicio</title>
-</head>
-<body>
-<h1>Inventario</h1>
-<table id="theTable" class="display" style="width: 100%">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>nombre</th>
-            <th>correo</th>
-            <th>password</th>
-
-        </tr>
-    </thead>
-    <tfoot>
-        <tr>
-            <th>id</th>
-            <th>nombre</th>
-            <th>correo</th>
-            <th>password</th>
-        </tr>
-    </tfoot>
-</table>
-</body>
-</html>
-<script
-  src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-<script type="application/javascript">
-    $(document).ready( function () {
-        $('#theTable').DataTable({
-            ajax: './get_data.php',
-        });
-    } );
-</script>
