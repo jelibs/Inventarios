@@ -16,7 +16,7 @@
     <div class="login">
         <h1>Crear cuenta</h1>
 
-        <form action="registrar_usuario.php" method="post">
+        <form action="register.php" method="post">
 
         <label for="correo">
             <i class="fa-solid fa-id-badge"></i>
@@ -33,7 +33,7 @@
             </label>
             <input type="password" name="password"
             placeholder="Contraseña" id="password"  pattern="[A-Za-z0-9!?-]{8,12}" required>
-            <input type="submit"  name="registrar" value="Registrar">
+            <input type="submit"  name="submit" value="Registrar">
         </form>
         <br>
     </div>
