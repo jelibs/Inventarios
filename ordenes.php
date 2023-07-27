@@ -1,4 +1,24 @@
 <?php
+
+require_once 'cone.php';
+session_start();
+
+$correo = "joselbravo1@gmail.com";
+$password = "12345678";
+
+
+$passwordHash = password_hash($password, PASSWORD_BCRYPT);
+
+if(password_verify($password, $passwordHash)){
+    header("Location: inicio.php");
+}else{
+    $_SESSION['logueado'] = false;
+    print("No se pudo iniciar sesion");
+}
+
+?>
+?>
+<!-- <?php
 // recogemos datos enviados desde el formulario de registro
 //$u = filter_var($_POST['username'],FILTER_SANITIZE_STRING);
 //$p = filter_var($_POST['password'],FILTER_SANITIZE_STRING);
@@ -12,4 +32,6 @@ if (password_verify("12345678",$p_hashed)) {
 } else {
     echo "La contraseña no es válida.";
 }
+?> -->
+
 ?>

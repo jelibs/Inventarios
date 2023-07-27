@@ -36,6 +36,7 @@ if ($stmt = $conexion->prepare('SELECT id,password FROM usuarios WHERE correo = 
     // parámetros de enlace de la cadena s
 
     $stmt->bind_param('s', $_POST['correo']);
+    print($stmt);
     $stmt->execute();
 }
 

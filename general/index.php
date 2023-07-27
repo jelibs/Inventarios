@@ -1,3 +1,16 @@
+<?php
+
+
+// confirmar sesion
+session_start();
+if (!isset($_SESSION['logueado'])) {
+    $_SESSION['name'] = $_POST['correo'];
+    header('Location: index.php');
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -2,12 +2,9 @@
 
 
 // confirmar sesion
-
 session_start();
-
-
-if (!isset($_SESSION['loggedin'])) {
-
+if (!isset($_SESSION['logueado'])) {
+    $_SESSION['name'] = $_POST['correo'];
     header('Location: index.php');
     exit;
 }
@@ -39,13 +36,14 @@ if (!isset($_SESSION['loggedin'])) {
 
 <table class="default">
     <tr>
-        <td><a href="gps/index.php">GPS - Tlaxcala</a></td>
+        <td><a href="gps">GPS - Tlaxcala</a></td>
+
     </tr>
     <tr>
-        <td><a href="cctv/index.php">CCTV - Tlaxcala</a></td>
+        <td><a href="cctv">CCTV - Tlaxcala</a></td>
     </tr>
     <tr>
-        <td><a href="general/index.php">Mostrar todas las ordenes de servicio</a></td>
+        <td><a href="general">Mostrar todas las ordenes de servicio</a></td>
     </tr>
 </table>
     </div>

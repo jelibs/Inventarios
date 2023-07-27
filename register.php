@@ -1,5 +1,6 @@
 <?php
-
+   date_default_timezone_set('America/Mexico_City');
+  $fecha_ = date("d-m-Y h:i:s");  
 include './general/funciones.php';
 
 // csrf();
@@ -20,7 +21,6 @@ if (isset($_POST['submit'])) {
     $conexion = new PDO($dsn, $config['db']['user'], $config['db']['pass'], $config['db']['options']);
 
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-    print($password);
     $estado = 1;
     $fecha_alta = date("d-m-Y h:i:s");
     $new_orden = [
@@ -40,7 +40,9 @@ if (isset($_POST['submit'])) {
     $resultado['error'] = true;
     $resultado['mensaje'] = $error->getMessage();
   }
-  header('Location index.php');
+  if($resultado['error'] === false) {
+    header('Location: ./registro.php');
+  }
 }
 ?>
 

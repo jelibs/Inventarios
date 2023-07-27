@@ -14,7 +14,7 @@
     <div class="login">
         <h1>Iniciar sesión</h1>
 
-        <form action="autenticacion.php" method="post">
+        <form action="login.php" method="post">
             <label for="correo">
                 <i class="fas fa-user"></i>
             </label>
